@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block 'main' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <title>Order Summary</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 mt-2">
+                <h5 class="text-white p-1" style="background-color: rgb(147, 51, 110);">Customers details</h5>
+                <div class="p-1" style="background-color: rgb(219, 225, 155);">
+                    {% for x in products %}
+                    {% if forloop.counter == 1 %}
+                    
+                    <p><strong>Name:</strong>&nbsp;{{x.uid.first_name}}</p>
+                    
+                    <p><strong>Email:</strong>&nbsp;{{x.uid.email}}</p>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-3 mt-2">
+                <h5 class="text-white p-1" style="background-color: rgb(147, 51, 110);">Total Amount</h5>
+                <div class="p-1" style="background-color: rgb(219, 225, 155);">
+                    <p><strong>Total ({{n}})items:</strong>&nbsp;&nbsp;{{total}}</p>
+                    <p><strong>Total Price To Be Paid:</strong>&nbsp;&nbsp;{{total}}</p>
+                    <a href="/makepayment" ><button class='btn btn-success'>Make Payment</button></a>
+                </div>    
+            </div>
+        </div>
+
+
+
+        <h5 class="text-white bg-danger mt-2 p-2">Product Summary</h5>
+
+                <div class="row">
+                    <div class="p-1" style="background-color: rgb(120, 161, 107);">
+                        {% for x in products %}
+                        
+                        <div class="col-md-4">
+                            <img src="{{x.pid.piamge.url}}" alt="..." width="100%">
+                        </div>
+
+                        <div class="col=md-8">
+                            <p><strong>Product Name:</strong> &nbsp; &nbsp; {{x.pid.name}}</p>
+                            <p><strong>Product Price:</strong> &nbsp; &nbsp;{{x.pid.price}}</p>
+
+                            {% if x.pid.category == 1 %}
+                            <p><strong>Category:</strong>&nbsp; &nbsp; &nbsp;Assault Rifles</p>
+                            {% elif x.pid.category == 2 %}
+                            <p><strong>Category:</strong>&nbsp; &nbsp; &nbsp;Designated Marksman Rifles</p>
+                            {% elif x.pid.category == 3 %}
+                            <p><strong>Category:</strong>&nbsp; &nbsp; &nbsp;Sniper Rifles</p>
+                            {% elif x.pid.category == 4 %}
+                            <p><strong>Category:</strong>&nbsp; &nbsp; &nbsp;Shotguns</p>
+                            {% elif x.pid.category == 5 %}
+                            <p><strong>Category:</strong>&nbsp; &nbsp; &nbsp;Light Machine Guns</p>
+                            {% elif x.pid.category == 6 %}
+                            <p><strong>Category:</strong>&nbsp; &nbsp; &nbsp;Submachine Guns</p>
+                            {% elif x.pid.category == 7 %}
+                            <p><strong>Category:</strong>&nbsp; &nbsp; &nbsp;Pistols</p>
+                            {% elif x.pid.category == 8 %}
+                            <p><strong>Category:</strong>&nbsp; &nbsp; &nbsp;Crossbows</p>
+                            {% elif x.pid.category == 9 %}
+                            <p><strong>Category:</strong>&nbsp; &nbsp; &nbsp;Melee Weapons</p>
+                            
+                            {% else %}
+                            <p><strong>Category:</strong>&nbsp; &nbsp; &nbsp;Throwables</p>
+                            {% endif %}
+                
+
+                            <p><strong>Product Details:</strong> &nbsp; &nbsp; {{x.pid.pdetails}}</p>
+
+                            <!--
+
+                            <p>
+                                <strong>QTY:</strong>
+                                <a href="/updateqty/0/{{x.id}}"><button class="btn btn-danger">-</button></a>
+                                
+                                <input type="number" value="{{x.qty}}">
+
+                                <a href="/updateqty/1/{{x.id}}"><button class="btn btn-success">+</button></a>
+                            </p>
+
+                            -->
+
+                            <p>
+                                <a href="/remove/{{x.pid.id}}"><button class="btn btn-danger">Remove</button></a>
+                            </p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div> 
+        
+        
+
+    </div>
+</body>
+</html>
+
+{% endblock 'main' %}

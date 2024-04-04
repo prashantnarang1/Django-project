@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block 'main' %}
+
+    <div class="container">
+
+        <div class="row">
+            <!--Side bar contents-->
+            <div class="col-md-3 mt-2 p-2" style="background-color: rgb(219, 225, 155);">
+                <h4 class="text-black">Contents:</h4>
+                <hr>
+                <p><strong><a href="/home" class="anchor" style="color: brown;">All</a></strong></p>
+                <h5><a href="/catfilter/1" class="anchor" ><i>Assault Rifles</i></a></h5>
+                <h5><a href="/catfilter/2" class="anchor" ><i>Designated Marksman Rifles</i></a></h5>
+                <h5><a href="/catfilter/3" class="anchor" ><i>Sniper Rifles</i></a></h5>
+                <h5><a href="/catfilter/4" class="anchor" ><i>Shotguns</i></a></h5>
+                <h5><a href="/catfilter/5" class="anchor" ><i>Light Machine Guns</i></a></h5>
+                <h5><a href="/catfilter/6" class="anchor" ><i>Submachine Guns</i></a></a></h5>
+                <h5><a href="/catfilter/7" class="anchor" ><i>Pistols</i></a></h5>
+                <h5><a href="/catfilter/8" class="anchor" ><i>Crossbows</i></a></h5>
+                <h5><a href="/catfilter/9" class="anchor" ><i>Melee Weapons</i></a></h5>
+                <h5><a href="/catfilter/10" class="anchor" ><i>Throwables</i></a></h5>
+                <br>
+
+                <h5 class="text-black">Filter By Price:</h5> <hr>
+                
+                <form  method="GET" action="/range">
+                    <div class="mb-2">
+                        <label for="one" class="form-label">Min Price:</label>
+                        <input type="number" id="one" class="form-control" name="umin" placeholder="minimum price">
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="two" class="form-label">Max Price:</label>
+                        <input type="number" id="two" class="form-control" name="umax" placeholder="maximum price">
+                    </div>
+
+                    <div class="mb-2">
+                        <input type="submit" class="btn btn-secondary" value="Filter">
+                    </div>
+                </form>
+
+                <h5 class="text-black">Sort By Price</h5>
+                <hr>
+                <p><a href="/sort/1" class="anchor">High to Low</a></p>
+                <p><a href="/sort/0" class="anchor">Low to High</a></p>
+
+
+            </div>
+            <!--End of Side bar  contents -->
+
+            <div class="col-md-9 mt-2 p-2" style="background-color: rgb(120, 161, 107);">
+                <h4>Weapons And Gear Portal:</h4>
+                <hr>
+              <div class="row">
+
+                {% for x in products %}
+                <div class="col-md-3 mt=2 p-2">
+                    <div class="card" style="width: 100%;">
+                        <img src="{{x.piamge.url}}" class="card-img-top" alt="..." width="100%" height="120px">
+                        <div class="card-body">
+                          <h5 class="card-title">{{x.name}}</h5>
+
+                          
+
+                          <p class="card-text">${{x.price}}</p>
+
+                            {% if x.category == 1 %}
+                                <p class='card-text'>Assault Rifles</p>
+
+                            {% elif  x.category == 2 %}
+                                <p class="card-text">Designated Marksman Rifles</p>
+
+                            {% elif  x.category == 3 %}
+                                <p class="card-text">Sniper Rifles</p>
+
+                            {% elif  x.category == 4 %}
+                                <p class="card-text">Shotguns</p>
+
+                            {% elif  x.category == 5 %}
+                                <p class="card-text">Light Machine Guns</p>
+
+                            {% elif  x.category == 6 %}
+                                <p class="card-text">Submachine Guns</p>
+
+                            {% elif  x.category == 7 %}
+                                <p class="card-text">Pistols</p>
+
+                            {% elif  x.category == 8 %}
+                                <p class="card-text">Crossbows</p>
+
+                            {% elif  x.category == 9 %}
+                                <p class="card-text">Melee Weapons</p>
+
+
+                            {% else %}
+                                <p class="card-text">Throwables</p>
+
+                            {% endif %}
+
+                          <a href="/product_details/{{x.id}}" class="btn btn-success">See details</a>
+                        </div>
+                      </div>
+                </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+           
+
+    
+    </div>
+    
+
+{% endblock 'main' %}
